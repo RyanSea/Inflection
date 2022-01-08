@@ -20,7 +20,7 @@ module.exports = {
   solidity: "0.8.4",
   networks: {
     rinkeby: {
-      url: 'Alchemy_URL',
+      url: 'Alchemy-URL',
       accounts: ['Private_Key']
     }
   }
