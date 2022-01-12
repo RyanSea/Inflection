@@ -34,7 +34,7 @@ contract Inflection {
 
 
 
-  //Assign Token Contract to Bank Upon Construction
+  //Assign Token Contract to Inflection Upon Construction
   constructor(Point _point) 
   {
 
@@ -84,9 +84,19 @@ contract Inflection {
 
   }
 
+  function hasBalance(uint discordID)
+    public
+    view
+    returns(bool)
+  {
+
+    return balance[discordID] > 0;
+
+  }
+
+
   function withdraw(uint discordID, uint _amount) 
     public 
-    returns(bool)
   {
 
     address _address = inflectionAccount[discordID];
@@ -94,9 +104,9 @@ contract Inflection {
     uint amount = _amount * 10 ** 18;
 
     if (_address == address(0x0)) {
-      return false;
+      return;
     } else if (bal == 0) {
-      return false;
+      return;
     } else if (bal < amount) {
       
       token.transfer(_address, bal);
@@ -108,8 +118,6 @@ contract Inflection {
       balance[discordID] -= amount;
       
     }
-    
-    return true;
     
   }
 
@@ -143,6 +151,10 @@ contract Inflection {
     public
   {
 
+    // Requires users balance to be more than 1
+    uint userBalance = balance[engagerID];
+    require(userBalance > 1, "User has no balance to engage with");
+
     // Adds 1 point of Mana every 36 seconds from Previous Engagement up to a Max of 100
     uint manaIncrease = (block.timestamp - previousEngagement[engagerID]) / 36;
     uint mana = previousMana[engagerID] + manaIncrease;
@@ -152,13 +164,13 @@ contract Inflection {
     
     // Calulate Engagement Value & Mint it
     uint engagementModifer = 1000; // 1000 = 10% Yield on Engagement at max Mana && 9% at 90 Mana
-    uint engagementValue = balance[engagerID] * mana / engagementModifer; 
+    uint engagementValue = userBalance * mana / engagementModifer; 
     token.mint(address(this), engagementValue);
 
     // Split Engagement Value between engager, engagee, protocol, and server
     balance[posterID] += engagementValue * 70 / 100;
     balance[engagerID] += engagementValue * 20 / 100;
-    balance[serverID] += engagementValue * 10 / 100;
+    balance[serverID] += engagementValue * 7 / 100;
 
     // Subtracts 10% Mana from engager, assigns to engager'spreviousMana + logs time to enager's previousEngagement
     if (mana > 10) {

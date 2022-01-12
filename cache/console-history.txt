@@ -1,3 +1,12 @@
+await token.whoIsOwner()
+await token.passOwnership('0x35C18e1219C6315383ab7153bE26005Fd3A2E979')
+await token.whoIsOwner()
+await token.name()
+const token = await hre.ethers.getContractAt('Point', '0x794eaf67B64a722A958Eaf4CD8Da30980877B9f0')
+await token.whoIsOwner()
+await token.passOwnership('0xACfA1521e79930ddF8af51C091f51Bb1a52b0021')
+await token.whoIsOwner()
+const token = await hre.ethers.getContractAt('Point', '0x5019C3F260f59AB8426f4506F57D991F44B50758')
 await token.balanceOf('0x9ecFca6B5dBE01772177F1b4fB660a063D17a7De') / 10 ** 18
 await token.balanceOf('0x9ecFca6B5dBE01772177F1b4fB660a063D17a7De')
 await token.name()
