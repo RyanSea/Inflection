@@ -10,6 +10,8 @@ node_modules
 package-lock.json
 .DS_Store
 config
+artifacts
+cache
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
