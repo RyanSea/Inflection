@@ -1,15 +1,4 @@
-# Basic Sample Hardhat Project
+# Inflection is a Protocol to Tokenize Engagement
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+Users stake, and yiels is generated upon engagement and split between the user engaging (as incentive to stake) and the user being engaged with (as incentive to create valuable content). The economic value of the token (POINT) is backed by the quality of the content it was minted from. 
 
-Try running some of the following tasks:
-
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
