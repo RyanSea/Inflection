@@ -66,8 +66,7 @@ contract Inflection is Ownable{
 
   //Maps Discord ID to Ethereum Address
   function authenticate(uint discordID, address _address) 
-    public
-    onlyOwner 
+    public 
   {
       
     inflectionAccount[discordID] = _address;
