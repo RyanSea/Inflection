@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "./Point.sol";
-import "hardhat/console.sol";
+
 
 //TODO add PowerUp + PowerDown functionality — Make PowerDown POINTs a pre-req for sending
 
-contract Inflection {
+contract Inflection is Ownable{
 
   //assign Token contract to variable
   Point private token;
@@ -45,6 +45,7 @@ contract Inflection {
   //Assign Server ID to Server Owner's ID
   function assignServerOwner(uint userID, uint serverID)
     public
+    onlyOwner
   {
 
     serverOwner[serverID] = userID;
@@ -65,7 +66,8 @@ contract Inflection {
 
   //Maps Discord ID to Ethereum Address
   function authenticate(uint discordID, address _address) 
-    public 
+    public
+    onlyOwner 
   {
       
     inflectionAccount[discordID] = _address;
@@ -96,7 +98,8 @@ contract Inflection {
 
 
   function withdraw(uint discordID, uint _amount) 
-    public 
+    public
+    onlyOwner 
   {
 
     address _address = inflectionAccount[discordID];
@@ -149,6 +152,7 @@ contract Inflection {
   //Core Engagement Function 
   function engage(uint engagerID, uint posterID, uint serverID) 
     public
+    onlyOwner
   {
 
     // Requires users balance to be more than 1
@@ -188,7 +192,8 @@ contract Inflection {
   
 
   function sendPOINT(uint senderID, uint receiverID, uint amount) 
-    public 
+    public
+    onlyOwner 
   {
 
     if(balance[senderID] < amount){
@@ -203,6 +208,7 @@ contract Inflection {
 
   function addPOINT(uint userID, uint _amount) 
     public 
+    onlyOwner
   {
     uint amount = _amount * 10 ** 18;
     token.mint(address(this), amount);
