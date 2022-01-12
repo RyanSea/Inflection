@@ -13,6 +13,8 @@ const main = async () => {
   console.log('Inflection Address: ', Inflection.address);
     
 };
+
+
   
 const runMain = async () => {
     try {
@@ -25,3 +27,4 @@ const runMain = async () => {
 };
   
 runMain();
+
