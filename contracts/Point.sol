@@ -11,13 +11,8 @@ contract Point is ERC20 {
         _mint(to, amount);
     }
 
-    // function burn(uint amount) public {
-    //     _burn(msg.sender, amount);
-    // }
-
     function approveFrom(address owner, address spender, uint amount) public {
         _approve(owner, spender, amount);
     }
     
-
 }
