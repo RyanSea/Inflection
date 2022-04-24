@@ -1,26 +1,23 @@
-// SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Point is Ownable, ERC20 {
+import {ERC20} from  "@rari-capital/solmate/src/tokens/ERC20.sol";
 
-  constructor() 
-    payable 
-    ERC20("Inflection", "POINT") 
-  {
-  
-  }
+contract Point is ERC20 {
 
+    constructor() ERC20("Inflection Point Token", "POINT", 18) {}
 
-  function mint(address account, uint256 amount) 
-    public 
-    onlyOwner
-  {
+    function mint(address to, uint amount) public {
+        _mint(to, amount);
+    }
 
-		_mint(account, amount);
+    // function burn(uint amount) public {
+    //     _burn(msg.sender, amount);
+    // }
 
-	}
-
+    function approveFrom(address owner, address spender, uint amount) public {
+        _approve(owner, spender, amount);
+    }
+    
 
 }

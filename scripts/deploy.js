@@ -11,8 +11,14 @@ const main = async () => {
   const Inflection = await InflectionContract.deploy(Point.address);
   await Inflection.deployed();
   console.log('Inflection Address: ', Inflection.address);
+
+  const deployedPoint = await hre.ethers.getContractAt('Point', Point.address)
+  await deployedPoint.transferOwnership(Inflection.address)
+  
+  console.log(`Point contract owner is: ${await deployedPoint.owner()}`)
     
 };
+
 
 
   
