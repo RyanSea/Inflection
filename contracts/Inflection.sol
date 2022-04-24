@@ -8,7 +8,6 @@ import {Point} from "./Point.sol";
 /// @notice Protocol for tokenizing online engagement
 /// based on the stake of the person engaging.
 /// @notice ERC4626 compliant vault.
-/// @author Autocrat
 contract Inflection is ERC4626 {
 
     /*///////////////////////////////////////////////////////////////
