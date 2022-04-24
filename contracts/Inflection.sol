@@ -193,20 +193,23 @@ contract Inflection is ERC4626 {
         uint engager_id, 
         uint engagee_id
     ) public {
-        // Inflate and calculate engager's mana
+        // Inflate (mint POINT + add to reward pool) and calculate engager's mana 
         inflate();
         calculateMana(engager_id);
 
-        // Caluclate value of engagement
+        // Calculate value of engagement
         // POWER and mana of engager repepresent share of the reward pool
         Profile storage engager = user[engager_id];
         uint power = balanceOf[engager.wallet];
         uint value = rewardPool / power / 10 / 100 * engager.mana;
 
-        // Mint value of POINT and distribute POWER to engagee (80%) + engager (20%)
-        point.mint(address(this), value);
+        // Mint POWER and distribute to engagee (80%) + engager (20%)
+        // The POINT minted upon inflate() is now withdrawable
         _mint(engager.wallet, value * 20 / 100);
         _mint(user[engagee_id].wallet, value * 80 / 100);
+
+        // Remove engagement value from reward pool
+        rewardPool -= value;
 
         // Update engager's profile
         engager.lastEngagement = block.timestamp;
